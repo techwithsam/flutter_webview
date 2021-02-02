@@ -13,7 +13,7 @@ class _WebExampleOneState extends State<WebExampleOne> {
   @override
   Widget build(BuildContext context) {
     return WebviewScaffold(
-      url: 'https://flutter.dev',
+      url: 'https://obounce.net',
       appBar: AppBar(
         title: Text("O'Bounce Technologies"),
         centerTitle: true,
