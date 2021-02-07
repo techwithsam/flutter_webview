@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'webview/example1.dart';
 import 'webview/example2.dart';
+import 'webview/example3.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -10,6 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final WebExampleThree inAppBrowser = WebExampleThree();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +51,9 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 12),
               MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  inAppBrowser.openUrl(url: 'https://obounce.net');
+                },
                 child: Text(
                   'Example 3',
                   style: TextStyle(color: Colors.white),
