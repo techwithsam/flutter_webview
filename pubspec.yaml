@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.1
   flutter_webview_plugin:
   flutter_inappwebview:
+  connectivity:
 
 dev_dependencies:
   flutter_test:
