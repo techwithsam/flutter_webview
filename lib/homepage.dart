@@ -23,10 +23,8 @@ class _HomePageState extends State<HomePage> {
   int checkInt = 0;
 
   var options = InAppBrowserClassOptions(
-      crossPlatform: InAppBrowserOptions(
-          hideUrlBar: false,
-          hideToolbarTop: false,
-          toolbarTopBackgroundColor: Colors.red),
+      crossPlatform:
+          InAppBrowserOptions(toolbarTopBackgroundColor: Colors.blue),
       inAppWebViewGroupOptions: InAppWebViewGroupOptions(
         crossPlatform: InAppWebViewOptions(
           javaScriptEnabled: true,
@@ -139,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   checkInt == 1
                       ? inAppChrome.open(
-                          url: Uri.parse("https://obounce.net"),
+                          url: Uri.parse(_url),
                           options: ChromeSafariBrowserClassOptions(
                               android: AndroidChromeCustomTabsOptions(),
                               ios: IOSSafariOptions()))
@@ -154,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.pink[900],
                 padding: EdgeInsets.symmetric(horizontal: 70, vertical: 12),
               ),
-              SizedBox(height: 12), 
+              SizedBox(height: 12),
               MaterialButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(

@@ -20,6 +20,10 @@ class WebExampleFiveState extends State<WebExampleFive> {
     return SafeArea(
       child: WebView(
         initialUrl: 'https://github.com/techwithsam',
+        javascriptMode: JavascriptMode.unrestricted,
+        allowsInlineMediaPlayback: true,
+        initialMediaPlaybackPolicy:
+            AutoMediaPlaybackPolicy.require_user_action_for_all_media_types,
       ),
     );
   }
