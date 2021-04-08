@@ -33,6 +33,9 @@ dependencies:
   webview_flutter:
   connectivity: ^3.0.3
   url_launcher:
+  flutter_downloader:
+  permission_handler:
+  path_provider:
 
 dev_dependencies:
   flutter_test:

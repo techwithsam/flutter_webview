@@ -1,6 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class WebExampleTwo extends StatefulWidget {
@@ -16,15 +18,18 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
   String url = '';
 
   final GlobalKey webViewKey = GlobalKey();
+  // Future<Directory?>? _externalDocumentsDirectory =
+  //     getExternalStorageDirectory();
 
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
       crossPlatform: InAppWebViewOptions(
-        useShouldOverrideUrlLoading: true,
-        mediaPlaybackRequiresUserGesture: false,
         javaScriptEnabled: true,
-        javaScriptCanOpenWindowsAutomatically: true,
+        useShouldOverrideUrlLoading: true,
+        useOnDownloadStart: true,
       ),
       android: AndroidInAppWebViewOptions(
+        initialScale: 100,
+        useShouldInterceptRequest: true,
         useHybridComposition: true,
       ),
       ios: IOSInAppWebViewOptions(
@@ -86,9 +91,24 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
                 child: InAppWebView(
                   key: webViewKey,
                   initialUrlRequest: URLRequest(
-                      url: Uri.parse("https://github.com/techwithsam")),
+                    url: Uri.parse("https://unsplash.com/photos/odxB5oIG_iA"),
+                    headers: {},
+                  ),
                   initialOptions: options,
                   pullToRefreshController: pullToRefreshController,
+                  onDownloadStart: (controller, url) async {
+                    // downloading a file in a webview application
+                    print("onDownloadStart $url");
+                    await FlutterDownloader.enqueue(
+                      url: url.toString(), // url to download
+                      savedDir: (await getExternalStorageDirectory())
+                          ?.path, // the directory to store the download
+                      fileName: 'downloads',
+                      headers: {},
+                      showNotification: true,
+                      openFileFromNotification: true,
+                    );
+                  },
                   onWebViewCreated: (controller) {
                     _webViewController = controller;
                   },
@@ -151,12 +171,12 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
                       _webViewController?.goForward();
                     },
                   ),
-                  // ElevatedButton(
-                  //   child: Icon(Icons.refresh),
-                  //   onPressed: () {
-                  //     _webViewController?.reload();
-                  //   },
-                  // ),
+                  ElevatedButton(
+                    child: Icon(Icons.refresh),
+                    onPressed: () {
+                      _webViewController?.reload();
+                    },
+                  ),
                 ],
               ),
             ],

@@ -8,6 +8,8 @@ class WebExampleFive extends StatefulWidget {
 }
 
 class WebExampleFiveState extends State<WebExampleFive> {
+  WebViewController? webViewController;
+
   @override
   void initState() {
     super.initState();
@@ -19,11 +21,16 @@ class WebExampleFiveState extends State<WebExampleFive> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: WebView(
-        initialUrl: 'https://github.com/techwithsam',
+        initialUrl:
+            'https://unsplash.com/photos/odxB5oIG_iA', // 'https://github.com/techwithsam',
         javascriptMode: JavascriptMode.unrestricted,
         allowsInlineMediaPlayback: true,
-        initialMediaPlaybackPolicy:
-            AutoMediaPlaybackPolicy.require_user_action_for_all_media_types,
+        debuggingEnabled: true,
+        userAgent: "",
+        onWebViewCreated: (controller) {
+          webViewController = controller;
+        },
+        initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy.always_allow,
       ),
     );
   }
