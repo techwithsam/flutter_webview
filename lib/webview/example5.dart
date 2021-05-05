@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebExampleFive extends StatefulWidget {
+  final String url;
+  WebExampleFive({required this.url});
+  
   @override
   WebExampleFiveState createState() => WebExampleFiveState();
 }
@@ -21,8 +24,7 @@ class WebExampleFiveState extends State<WebExampleFive> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: WebView(
-        initialUrl:
-            'https://unsplash.com/photos/odxB5oIG_iA', // 'https://github.com/techwithsam',
+        initialUrl: widget.url,
         javascriptMode: JavascriptMode.unrestricted,
         allowsInlineMediaPlayback: true,
         debuggingEnabled: true,

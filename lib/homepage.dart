@@ -108,8 +108,11 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 12),
               MaterialButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => WebExampleTwo()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => WebExampleTwo(url: _url),
+                      ));
                 },
                 child: Text(
                   'Example 2',
@@ -156,7 +159,7 @@ class _HomePageState extends State<HomePage> {
               MaterialButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => WebExampleFive()));
+                      builder: (context) => WebExampleFive(url: _url)));
                 },
                 child: Text(
                   'Example 5',

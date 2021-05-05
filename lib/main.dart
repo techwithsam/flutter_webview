@@ -1,6 +1,11 @@
+// Developer: Samuel Adekunle
+// YouTube Tutorial: https://youtube.com/playlist?list=PLMfrNHAjWCoB6roLO1soz6RMc5BdnU9pk
+// Join My Discord Server to ask question: https://discord.gg/95w942N6Ts
+// Follow me on Twitter: https://twitter.com/techwithsam_
+
+
 import 'dart:io';
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler/permission_handler.dart';

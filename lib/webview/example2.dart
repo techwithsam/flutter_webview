@@ -6,7 +6,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class WebExampleTwo extends StatefulWidget {
-  WebExampleTwo({Key? key}) : super(key: key);
+  final String url;
+  WebExampleTwo({Key? key, required this.url}) : super(key: key);
 
   @override
   _WebExampleTwoState createState() => _WebExampleTwoState();
@@ -91,9 +92,9 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
                 child: InAppWebView(
                   key: webViewKey,
                   initialUrlRequest: URLRequest(
-                    url: Uri.parse("https://unsplash.com/photos/odxB5oIG_iA"),
+                    url: Uri.parse(widget.url),
                     headers: {},
-                  ),
+                  ), // "https://unsplash.com/photos/odxB5oIG_iA"
                   initialOptions: options,
                   pullToRefreshController: pullToRefreshController,
                   onDownloadStart: (controller, url) async {
@@ -101,8 +102,8 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
                     print("onDownloadStart $url");
                     await FlutterDownloader.enqueue(
                       url: url.toString(), // url to download
-                      savedDir: (await getExternalStorageDirectory())
-                          ?.path, // the directory to store the download
+                      savedDir: (await getExternalStorageDirectory())!.path,
+                      // the directory to store the download
                       fileName: 'downloads',
                       headers: {},
                       showNotification: true,
