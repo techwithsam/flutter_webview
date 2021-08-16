@@ -1,8 +1,7 @@
 // Developer: Samuel Adekunle
 // YouTube Tutorial: https://youtube.com/playlist?list=PLMfrNHAjWCoB6roLO1soz6RMc5BdnU9pk
-// Join My Discord Server to ask question: https://discord.gg/95w942N6Ts
+// Join My Discord Server to ask question: https://discord.com/invite/NytgTkyw3R
 // Follow me on Twitter: https://twitter.com/techwithsam_
-
 
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -19,7 +18,8 @@ Future<void> main() async {
   }
   await FlutterDownloader.initialize(
       debug: false); // set true to enable printing logs to console
-  await Permission.storage.request(); // ask for storage permission on app create
+  await Permission.storage
+      .request(); // ask for storage permission on app create
 
   runApp(MyApp());
 }
