@@ -31,7 +31,7 @@ class WebExampleFiveState extends State<WebExampleFive> {
         userAgent: "",
         onWebViewCreated: (controller) {
           webViewController = controller;
-        },
+        }, 
         initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy.always_allow,
       ),
     );

@@ -23,15 +23,16 @@ class _HomePageState extends State<HomePage> {
   int checkInt = 0;
 
   var options = InAppBrowserClassOptions(
-      crossPlatform:
-          InAppBrowserOptions(toolbarTopBackgroundColor: Colors.blue),
-      inAppWebViewGroupOptions: InAppWebViewGroupOptions(
-        crossPlatform: InAppWebViewOptions(
-          javaScriptEnabled: true,
-          cacheEnabled: true,
-          transparentBackground: true,
-        ),
-      ));
+    crossPlatform: InAppBrowserOptions(
+        hideUrlBar: false, toolbarTopBackgroundColor: Colors.blue),
+    inAppWebViewGroupOptions: InAppWebViewGroupOptions(
+      crossPlatform: InAppWebViewOptions(
+        javaScriptEnabled: true,
+        cacheEnabled: true,
+        transparentBackground: true,
+      ),
+    ),
+  );
 
   @override
   void initState() {
@@ -84,23 +85,24 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
       ),
       bottomNavigationBar: Padding(
-          padding: EdgeInsets.fromLTRB(3, 6, 3, 6),
-          child: RichText(
-            text: TextSpan(
-                text: 'Connect with me Online - ',
-                style: TextStyle(color: Colors.black),
+        padding: EdgeInsets.fromLTRB(3, 6, 3, 6),
+        child: RichText(
+          text: TextSpan(
+            text: 'Connect with me Online - ',
+            style: TextStyle(color: Colors.black),
+            recognizer: TapGestureRecognizer()..onTap = () => _launchURL(),
+            children: [
+              TextSpan(
+                text: '@techwithsam',
+                style:
+                    TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
                 recognizer: TapGestureRecognizer()..onTap = () => _launchURL(),
-                children: [
-                  TextSpan(
-                    text: '@techwithsam',
-                    style: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.w600),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () => _launchURL(),
-                  )
-                ]),
-            textAlign: TextAlign.center,
-          )),
+              )
+            ],
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -142,11 +144,16 @@ class _HomePageState extends State<HomePage> {
                       ? inAppChrome.open(
                           url: Uri.parse(_url),
                           options: ChromeSafariBrowserClassOptions(
-                              android: AndroidChromeCustomTabsOptions(),
-                              ios: IOSSafariOptions()))
-                      : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('No internet connection!'),
-                        ));
+                            android: AndroidChromeCustomTabsOptions(
+                                addDefaultShareMenuItem: false),
+                            ios: IOSSafariOptions(barCollapsingEnabled: true),
+                          ),
+                        )
+                      : ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('No internet connection!'),
+                          ),
+                        );
                 },
                 child: Text(
                   'Example 4',

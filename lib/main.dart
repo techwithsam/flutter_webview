@@ -16,10 +16,10 @@ Future<void> main() async {
   if (Platform.isAndroid) {
     await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   }
-  await FlutterDownloader.initialize(
-      debug: false); // set true to enable printing logs to console
-  await Permission.storage
-      .request(); // ask for storage permission on app create
+  await FlutterDownloader.initialize(debug: false);
+  // set true to enable printing logs to console
+  await Permission.storage.request();
+  // ask for storage permission on app create
 
   runApp(MyApp());
 }
