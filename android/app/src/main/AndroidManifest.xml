@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.full_webview">
+    package="com.techwithsam.flutter_webview">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     
    <application
-        android:label="full_webview"
+        android:label="Flutter Webview"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
