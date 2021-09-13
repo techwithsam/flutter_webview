@@ -1,7 +1,7 @@
 // Developer: Samuel Adekunle
 // YouTube Tutorial: https://youtube.com/playlist?list=PLMfrNHAjWCoB6roLO1soz6RMc5BdnU9pk
-// Join My Discord Server to ask question: https://discord.com/invite/NytgTkyw3R
-// Follow me on Twitter: https://twitter.com/techwithsam_
+// Join the community on Discord: https://discord.com/invite/NytgTkyw3R
+// Let's connect on Twitter: https://twitter.com/techwithsam_
 
 import 'dart:io';
 import 'package:flutter/material.dart';
