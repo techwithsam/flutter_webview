@@ -16,9 +16,10 @@ Future<void> main() async {
   if (Platform.isAndroid) {
     await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   }
-  await FlutterDownloader.initialize(debug: false);
+  await FlutterDownloader.initialize(debug: true);
   // set true to enable printing logs to console
   await Permission.storage.request();
+  await Permission.mediaLibrary.request();
   // ask for storage permission on app create
 
   runApp(MyApp());

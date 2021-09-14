@@ -28,10 +28,12 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
       javaScriptEnabled: true,
       useShouldOverrideUrlLoading: true,
       useOnDownloadStart: true,
+      allowFileAccessFromFileURLs: true,
       mediaPlaybackRequiresUserGesture: false,
     ),
     android: AndroidInAppWebViewOptions(
       initialScale: 100,
+      allowFileAccess: true,
       useShouldInterceptRequest: true,
       useHybridComposition: true,
     ),
@@ -84,7 +86,7 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
                   InAppWebView(
                     key: webViewKey,
                     initialUrlRequest: URLRequest(
-                      url: Uri.parse(widget.url),
+                      url: Uri.parse('https://resizeimage.net/'),
                       headers: {},
                     ), // "https://unsplash.com/photos/odxB5oIG_iA"
                     initialOptions: options,
