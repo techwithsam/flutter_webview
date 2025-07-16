@@ -7,7 +7,7 @@ class WebExampleFour extends ChromeSafariBrowser {
   }
 
   @override
-  void onCompletedInitialLoad() {
+  void onCompletedInitialLoad(d) {
     print("ChromeSafari browser initial load completed");
   }
 

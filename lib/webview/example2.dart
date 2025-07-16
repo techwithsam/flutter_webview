@@ -1,8 +1,9 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:path_provider/path_provider.dart';
 
 class WebExampleTwo extends StatefulWidget {
   final String url;
@@ -20,33 +21,17 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
   double progress = 0;
   String url = '';
 
-  // Future<Directory?>? _externalDocumentsDirectory =
-  //     getExternalStorageDirectory();
-
-  InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
-    crossPlatform: InAppWebViewOptions(
-      javaScriptEnabled: true,
-      useShouldOverrideUrlLoading: true,
-      useOnDownloadStart: true,
-      allowFileAccessFromFileURLs: true,
-      mediaPlaybackRequiresUserGesture: false,
-    ),
-    android: AndroidInAppWebViewOptions(
-      initialScale: 100,
-      allowFileAccess: true,
-      useShouldInterceptRequest: true,
-      useHybridComposition: true,
-    ),
-    ios: IOSInAppWebViewOptions(
-      allowsInlineMediaPlayback: true,
-    ),
+  var options = InAppWebViewSettings(
+    javaScriptEnabled: true,
+    cacheEnabled: true,
+    transparentBackground: true,
   );
 
   @override
   void initState() {
     super.initState();
     pullToRefreshController = PullToRefreshController(
-      options: PullToRefreshOptions(color: Colors.blue),
+      settings: PullToRefreshSettings(color: Colors.blue),
       onRefresh: () async {
         if (Platform.isAndroid) {
           _webViewController?.reload();
@@ -86,12 +71,12 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
                   InAppWebView(
                     key: webViewKey,
                     initialUrlRequest: URLRequest(
-                      url: Uri.parse('https://resizeimage.net/'),
+                      url: WebUri('https://resizeimage.net/'),
                       headers: {},
                     ), // "https://unsplash.com/photos/odxB5oIG_iA"
-                    initialOptions: options,
+                    initialSettings: options,
                     pullToRefreshController: pullToRefreshController,
-                    onDownloadStart: (controller, url) async {
+                    onDownloadStartRequest: (controller, url) async {
                       // downloading a file in a webview application
                       print("onDownloadStart $url");
                       await FlutterDownloader.enqueue(
@@ -113,11 +98,11 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
                         urlController.text = this.url;
                       });
                     },
-                    androidOnPermissionRequest:
-                        (controller, origin, resources) async {
-                      return PermissionRequestResponse(
-                          resources: resources,
-                          action: PermissionRequestResponseAction.GRANT);
+                    onPermissionRequest: (controller, resources) async {
+                      return PermissionResponse(
+                        resources: [],
+                        action: PermissionResponseAction.GRANT,
+                      );
                     },
                     onLoadStop: (controller, url) async {
                       pullToRefreshController.endRefreshing();
@@ -126,7 +111,7 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
                         urlController.text = this.url;
                       });
                     },
-                    onLoadError: (controller, url, code, message) {
+                    onReceivedError: (controller, url, code) {
                       pullToRefreshController.endRefreshing();
                     },
                     onProgressChanged: (controller, progress) {
@@ -159,9 +144,10 @@ class _WebExampleTwoState extends State<WebExampleTwo> {
                 ],
               ),
             ),
-            ButtonBar(
-              buttonAlignedDropdown: true,
-              buttonPadding: EdgeInsets.all(2),
+            OverflowBar(
+              // buttonAlignedDropdown: true,
+              // buttonPadding: EdgeInsets.all(2),
+              overflowSpacing: 2, spacing: 2,
               alignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 ElevatedButton(

@@ -1,8 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:full_webview/check_internet.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'webview/example2.dart';
 import 'webview/example3.dart';
 import 'webview/example4.dart';
@@ -22,15 +23,15 @@ class _HomePageState extends State<HomePage> {
   String _url = "https://github.com/techwithsam";
   int checkInt = 0;
 
-  var options = InAppBrowserClassOptions(
-    crossPlatform: InAppBrowserOptions(
-        hideUrlBar: false, toolbarTopBackgroundColor: Colors.blue),
-    inAppWebViewGroupOptions: InAppWebViewGroupOptions(
-      crossPlatform: InAppWebViewOptions(
-        javaScriptEnabled: true,
-        cacheEnabled: true,
-        transparentBackground: true,
-      ),
+  InAppBrowserClassSettings options = InAppBrowserClassSettings(
+    browserSettings: InAppBrowserSettings(
+      hideUrlBar: false,
+      toolbarTopBackgroundColor: Colors.blue,
+    ),
+    webViewSettings: InAppWebViewSettings(
+      javaScriptEnabled: true,
+      cacheEnabled: true,
+      transparentBackground: true,
     ),
   );
 
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
     inAppChrome.addMenuItem(ChromeSafariBrowserMenuItem(
       id: 1,
       label: 'Example 1',
-      action: (title, url) {
+      onClick: (title, url) {
         print(title);
         print(url);
       },
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
     inAppChrome.addMenuItem(ChromeSafariBrowserMenuItem(
       id: 2,
       label: 'Example 2',
-      action: (title, url) {
+      onClick: (title, url) {
         print(title);
         print(url);
       },
@@ -127,8 +128,8 @@ class _HomePageState extends State<HomePage> {
               MaterialButton(
                 onPressed: () {
                   inAppBrowser.openUrlRequest(
-                      urlRequest: URLRequest(url: Uri.parse(_url)),
-                      options: options);
+                      urlRequest: URLRequest(url: WebUri(_url)),
+                      settings: options);
                 },
                 child: Text(
                   'Example 3',
@@ -142,12 +143,11 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   checkInt == 1
                       ? inAppChrome.open(
-                          url: Uri.parse(_url),
-                          options: ChromeSafariBrowserClassOptions(
-                            android: AndroidChromeCustomTabsOptions(
-                                addDefaultShareMenuItem: false),
-                            ios: IOSSafariOptions(barCollapsingEnabled: true),
-                          ),
+                          url: WebUri(_url),
+                          settings: ChromeSafariBrowserSettings(
+                              barCollapsingEnabled: true,
+                              shareState:
+                                  CustomTabsShareState.SHARE_STATE_DEFAULT),
                         )
                       : ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -182,7 +182,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _launchURL() async => await canLaunch(_url)
-      ? await launch(_url)
+  void _launchURL() async => await canLaunchUrl(Uri.parse(_url))
+      ? await launchUrl(Uri.parse(_url))
       : throw 'Could not launch $_url';
 }
